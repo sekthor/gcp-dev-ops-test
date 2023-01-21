@@ -29,8 +29,8 @@ jobs:
       run: docker build -t $IMAGE_NAME:latest .
 
     - name: Configure Docker Client
-      run: gcloud auth configure-docker europe-west6-docker.pkg.dev --quiet
-
+      run: echo ${{ secrets.SERVICE_ACCOUNT_KEY }} | docker login -u _json_key --password-stdin https://europe-west6-docker.pkg.dev
+ 
     - name: Push Docker Image to Artifact Registry
       run: |-
         docker tag $IMAGE_NAME:latest europe-west6-docker.pkg.dev/$PROJECT_ID/$REGISTRY/$IMAGE_NAME:latest
