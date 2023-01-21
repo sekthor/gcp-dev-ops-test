@@ -31,7 +31,7 @@ jobs:
       with:
         registry: europe-west6-docker.pkg.dev
         username: _json_key
-        password: ${{ secrets.GCR_JSON_KEY }}
+        password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         
     - name: 'Docker push'
       run: |-
