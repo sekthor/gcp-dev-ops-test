@@ -26,10 +26,13 @@ jobs:
         docker build -t $IMAGE:latest .
         docker tag $IMAGE:latest "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE" 
     
-    - name: docker login
-      run: |-
-        VARIABLE=${{ secrets.SERVICE_ACCOUNT_KEY }}
-        echo $VARIABLE
+    - name: Login to GCR
+      uses: docker/login-action@v2
+      with:
+        registry: europe-west6-docker.pkg.dev
+        username: _json_key
+        password: ${{ secrets.GCR_JSON_KEY }}
+        
     - name: 'Docker push'
       run: |-
         docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
